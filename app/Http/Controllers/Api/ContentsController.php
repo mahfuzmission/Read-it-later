@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContentsController extends Controller
 {
@@ -46,8 +47,9 @@ class ContentsController extends Controller
 
         $tag_ids = [];
 
+        Log::info(json_encode(trim($request->hashtags)));
         $content_tags = trim($request->hashtags);
-        $hashtags = (empty(trim($content_tags))) ? $this->getHashKeys($content_tags) : [];
+        $hashtags = (!empty(trim($content_tags))) ? $this->getHashKeys($content_tags) : [];
 
         if (!empty($hashtags))
         {
