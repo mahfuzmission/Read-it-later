@@ -273,7 +273,8 @@
             if(search != "")
             {
                 let url = "{{route('content-search', [ "search" => "value"])}}";
-                url = url.replace('value', search);
+                url = url.replace('value', encodeURIComponent(search));
+                console.log(url);
                 loadContents(url);
             }
 
