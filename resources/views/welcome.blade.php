@@ -55,10 +55,10 @@
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="javascript:void(0)">Pocket - Read It Later</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <input class="form-control form-control-dark w-100" type="text" id="search_value" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Search</a>
+            <a class="nav-link search_content" href="#">Search</a>
         </li>
     </ul>
 </nav>
@@ -175,10 +175,15 @@
                 if(xhr.status === 200) {
                     for(let i=0; i<response.data.length; i++ )
                     {
+                        let tags = [];
+                        if(response.data[i].tags != null && response.data[i].tags.length > 0)
+                        {
+                            tags = response.data[i].tags.map(item => '#'+item.tag_name);
+                        }
                         contents += '<div class="media text-muted pt-3">'+
                             '<img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">'+
                             '<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
-                            '<strong class="d-block text-gray-dark">@username</strong>'+
+                            '<strong class="d-block text-gray-dark">'+ tags.join(' ') +'</strong>'+
                             response.data[i].content +
                             '</p>'+
                             '<button style="margin-right: 50px;" type="button" data-id="'+ response.data[i].id +'" class="btn btn-outline-danger content_delete">delete</button>'+
@@ -262,6 +267,17 @@
             }
         });
 
+        $(document).on("click", "a.search_content" , function() {
+            let search = $('#search_value').val();
+
+            if(search != "")
+            {
+                let url = "{{route('content-search', [ "search" => "value"])}}";
+                url = url.replace('value', search);
+                loadContents(url);
+            }
+
+        });
 
     });
 </script>

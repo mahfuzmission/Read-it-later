@@ -47,7 +47,6 @@ class ContentsController extends Controller
 
         $tag_ids = [];
 
-        Log::info(json_encode(trim($request->hashtags)));
         $content_tags = trim($request->hashtags);
         $hashtags = (!empty(trim($content_tags))) ? $this->getHashKeys($content_tags) : [];
 
@@ -80,7 +79,10 @@ class ContentsController extends Controller
         $search = trim($request->search);
         $hashtag = $this->getHashKeys($search);
 
-        $contents = Content::when(!empty($pocket_id), function ($query) use($pocket_id){
+        $contents = Content::with(['tags' => function($query){
+            return $query->select('tags.tag_name');
+        }])
+            ->when(!empty($pocket_id), function ($query) use($pocket_id){
             return $query->where('pocket_id',$pocket_id);
         });
 
