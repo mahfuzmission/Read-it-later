@@ -17,6 +17,10 @@ class CreateContentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('pocket_id');
             $table->text('content');
+            $table->string('url')->nullable();
+            $table->string('title')->nullable();
+            $table->text('excerpt')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
 
             $table->foreign('pocket_id')->references('id')->on('pockets');

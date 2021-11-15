@@ -113,7 +113,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+{{--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>--}}
+<script src="{{asset('asset/jquery-3.1.1.min.js')}}"></script>
 <script src="{{asset('asset/popper.min.js')}}"></script>
 <script src="{{asset('asset/bootstrap.min.js')}}"></script>
 <script src="{{asset('asset/holder.min.js')}}"></script>
@@ -176,15 +177,25 @@
                     for(let i=0; i<response.data.length; i++ )
                     {
                         let tags = [];
+                        let src = 'src="{{asset('image/no-image.png')}}"';
                         if(response.data[i].tags != null && response.data[i].tags.length > 0)
                         {
                             tags = response.data[i].tags.map(item => '#'+item.tag_name);
                         }
+                        if(response.data[i].image != "" && response.data[i].image != null)
+                        {
+                            src = 'src="'+response.data[i].image +'"';
+                        }
+                        let title = (response.data[i].title != null) ? response.data[i].title : "";
+                        let excerpt = (response.data[i].excerpt != null) ? response.data[i].excerpt : "";
+
                         contents += '<div class="media text-muted pt-3">'+
-                            '<img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">'+
+                            '<img ' + src +' alt="" width="100" height="150" class="mr-2 rounded">'+
                             '<p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">'+
                             '<strong class="d-block text-gray-dark">'+ tags.join(' ') +'</strong>'+
-                            response.data[i].content +
+                                response.data[i].content +
+                            '<strong class="d-block text-gray-dark">Title : '+ title +'</strong>'+
+                            '<span>Excerpt : ' +  excerpt + '<span>'+
                             '</p>'+
                             '<button style="margin-right: 50px;" type="button" data-id="'+ response.data[i].id +'" class="btn btn-outline-danger content_delete">delete</button>'+
                             '</div>';
@@ -277,7 +288,9 @@
                 console.log(url);
                 loadContents(url);
             }
-
+            else{
+                alert('No hashtag or keyword found.')
+            }
         });
 
     });

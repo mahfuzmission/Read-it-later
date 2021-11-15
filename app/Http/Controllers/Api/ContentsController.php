@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Classes\MakeResponse;
+use App\Events\ContentScraperEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Tag;
@@ -67,6 +68,8 @@ class ContentsController extends Controller
             }
 
         }
+
+        event(new ContentScraperEvent($content));
 
         return MakeResponse::success("content successfully created", MakeResponse::created);
     }
@@ -137,6 +140,9 @@ class ContentsController extends Controller
             return MakeResponse::error($exception->getMessage(), MakeResponse::exception);
         }
     }
+
+
+
 
 
     private function getHashKeys($pocket_content)
