@@ -1,7 +1,7 @@
 
 #### Say, the content site got hacked, therefore when fetching the content URL for content parsing it can keep redirecting, how to solve this scenario?
 
-- one way around will be to kill the job, as it will be redirecting, it will fail to get parse and if we set a counter for attempt taken and remove it after all the attempts fails. 
+- one way around will be to kill the job, as it will be redirecting, it will fail to get parsed and if we set a counter for the number of attempt taken and remove it after all the attempts fail. 
 
 #### Say, the content site got hacked, therefore when fetching the content URL for content parsing it can inject virus / malware / adware. how to guard this?
 
