@@ -10,4 +10,4 @@
 #### Say, that URL can contain NSFW contents, how to flag NSFW? so that those don't get included in the suggestion system we may develop in future?
 
 - by using regex pattern to validate and remove NSFW contents
-- 
+
