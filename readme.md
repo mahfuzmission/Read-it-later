@@ -15,5 +15,5 @@ A small project to save url and fetch some data based on url which was saved.
 - run `php artisan key:generate` to generate the key
 - run `php artisan serve` and the server will open default on `127.0.0.1:8000`.
 - as database queue is required to scrap the data from the link, `php artisan queue:work` run the command to executing the queues from jobs table.
-- a api collection is provided in `api-documentation` directory. `api-collection.json` is the api collection file and just run `npx serve` and a server will run and a local url will be shown, there you will find the api documentation.
+- an api collection is provided in `api-documentation` directory. `api-collection.json` is the api collection file and just run `npx serve` and a server will run and a local url will be shown, there you will find the api documentation.
 
